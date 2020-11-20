@@ -88,20 +88,20 @@
     },
     methods: {
       submitForm() {
-        console.log('74 -- username: ', this.userName)
+        console.log('91 -- username: ', this.userName)
         this.userName = '';
-        console.log('76 -- user Age: ', this.userAge + 5)
-        console.log('77 -- this.$refs.ageInput.value: ', this.$refs.ageInput.value + 5)
+        console.log('93 -- user Age: ', this.userAge + 5)
+        console.log('94 -- this.$refs.ageInput.value: ', this.$refs.ageInput.value + 5)
         this.userAge = null;
-        console.log('79 -- referrer: ', this.referrer)
+        console.log('96 -- referrer: ', this.referrer)
         this.referrer = 'wom';
-        console.log('81 -- interest: ', this.interest)
+        console.log('98 -- interest: ', this.interest)
         this.interest = [];
-        console.log('83 -- how: ', this.how)
+        console.log('100 -- how: ', this.how)
         this.how = null;
-        console.log('85 -- confirm: ', this.confirm)
+        console.log('102 -- confirm: ', this.confirm)
         this.confirm = false;
-        console.log('85 -- rating: ', this.rating)
+        console.log('104 -- rating: ', this.rating)
         this.rating = null;
       },
       validateUserNameInputed() {

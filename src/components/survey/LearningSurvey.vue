@@ -28,7 +28,10 @@
         </div>
         <p
           v-if="invalidInput"
-        >One or more input fields are invalid. Please check your provided data.</p>
+        >
+          One or more input fields are invalid. Please check your provided data.
+        </p>
+        <p v-if="error" class="color-red">{{ error }}</p>
         <div>
           <base-button>Submit</base-button>
         </div>
@@ -47,6 +50,7 @@ export default {
       enteredName: '',
       chosenRating: null,
       invalidInput: false,
+      error: null
     };
   },
   // emits: ['survey-submit'],
@@ -63,6 +67,7 @@ export default {
         rating: this.chosenRating,
       }); */
 
+      this.error = null;
       fetch(`${this.baseUrl}survey.json`, {
         method: 'POST',
         headers: {
@@ -73,6 +78,16 @@ export default {
           rating: this.chosenRating,
         })
       })
+      .then((resp) => {
+        if (resp.ok) {
+          // ...
+        } else {
+          throw new Error('Can not save data...');
+        }
+      })
+      .catch((err) => {
+        this.error = err.message;
+      });
 
       this.enteredName = '';
       this.chosenRating = null;
@@ -82,13 +97,13 @@ export default {
 </script>
 
 <style scoped>
-.form-control {
-  margin: 0.5rem 0;
-}
+  .form-control {
+    margin: 0.5rem 0;
+  }
 
-input[type='text'] {
-  display: block;
-  width: 20rem;
-  margin-top: 0.5rem;
-}
+  input[type='text'] {
+    display: block;
+    width: 20rem;
+    margin-top: 0.5rem;
+  }
 </style>

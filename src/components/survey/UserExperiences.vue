@@ -10,10 +10,14 @@ const { for } = require("core-js/fn/symbol");
         >
       </div>
       <p v-if="isLoading">Loading...</p>
+      <p v-else-if="!isLoading && error"
+        className="color-red">
+        {{ error }}
+      </p>
       <p v-else-if="!isLoading && (!results || results.length === 0)">
         No data in DB
       </p>
-      <ul v-else-if="!isLoading && results && results.length > 0">
+      <ul v-else>
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -37,18 +41,20 @@ export default {
   data() {
     return {
       results: [],
-      isLoading: false
+      isLoading: false,
+      error: null
     };
   },
   methods: {
     loadUserExperience() {
       this.isLoading = true;
+      this.error = null;
       fetch(`${this.baseUrl}survey.json`)
         .then((resp) => {
           return resp.ok && resp.json();
         })
         .then((data) => {
-          console.log("41 -- data: ", data);
+          console.log("57 -- data: ", data);
           const rz = [];
           for(const id in data) {
             rz.push({
@@ -61,7 +67,9 @@ export default {
           this.results = rz;
         })
         .catch((err) => {
-          console.log(" -- ", err);
+          this.isLoading = false;
+          console.log(" 71 error -- ", err.message);
+          this.error = err.message;
         });
     },
   },
